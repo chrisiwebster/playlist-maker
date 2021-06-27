@@ -1,0 +1,71 @@
+.nav-wrapper {
+  background: #bec989;
+}
+
+nav {
+  height: 0;
+}
+.navigation {
+  /* critical sizing and position styles */
+  font-size: 1.25em;
+  width: 100vw;
+  height: auto;
+  margin-top: 1em;
+  position: relative;
+  background: inherit;
+  list-style: none;
+  border-radius: 10px;
+  top: -100px;
+  left: -40px;
+  z-index: -1;
+}
+
+.active {
+  z-index: 1;
+  top: 0;
+}
+
+.move-over {
+  transition-delay: 1s;
+}
+
+.nav-item {
+  position: relative;
+
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  text-decoration: none;
+}
+
+a.nav-item,
+a.nav-item:visited {
+  display: block;
+  padding: 20px;
+  color: white;
+  background: #bec989;
+  transition: color 0.2s, background 0.5s;
+}
+
+a.nav-item:hover {
+  color: #869bfd;
+  background: #fcf4c5;
+  cursor: pointer;
+}
+
+.fa-hamburger,
+.navigation,
+.fa-times {
+  transition: 0.2s;
+}
+
+.fa-hamburger,
+.fa-times {
+  padding: 0.15em;
+  font-size: 3em;
+  z-index: 1;
+}
+
+.fa-hamburger:hover,
+.fa-times:hover {
+  cursor: pointer;
+}
