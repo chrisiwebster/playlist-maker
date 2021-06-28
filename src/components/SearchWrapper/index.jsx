@@ -11,7 +11,7 @@ import PlaylistView from "../PlaylistView";
 
 //Variables
 const id = process.env.REACT_APP_SPOTIFY_KEY;
-const redirect = `https://chrisiwebster.github.io/playlist-maker/#/search`;
+const redirect = `${window.location.href}`;
 let accessToken;
 let expiresIn = 0;
 
