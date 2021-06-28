@@ -15,7 +15,7 @@ form#search {
   margin: 1em;
 }
 
-input {
+input#search {
   max-width: 75vw;
   min-width: 70vw;
 }

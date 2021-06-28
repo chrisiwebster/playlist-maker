@@ -26,12 +26,7 @@ const Playlist = ({
   };
 
   return (
-    <form
-      id="playlist-form"
-      className="playlist-wrapper"
-      onSubmit={(e) => handleSavePlaylist(e)}
-    >
-      <h2>Playlist maker</h2>
+    <form id="playlist-form" onSubmit={(e) => handleSavePlaylist(e)}>
       <Input
         type="text"
         id="playlist"
@@ -46,7 +41,7 @@ const Playlist = ({
         remove={true}
       />
 
-      <Button type="submit" name="Save to Spotify" />
+      <Button type="submit" name="Save to Spotify" id="save-spotify" />
     </form>
   );
 };

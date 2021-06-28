@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+//CSS
+import "./styles.css";
 
 //Components
 import SearchResults from "../SearchResults";
 import Search from "../Search";
 import Playlist from "../Playlist";
+import PlaylistView from "../PlaylistView";
 
 //Variables
 const id = process.env.REACT_APP_SPOTIFY_KEY;
-const redirect = `${window.location.href}#/search`;
+const redirect = `http://localhost:3000/`;
 let accessToken;
 let expiresIn = 0;
-let message;
 
 //Access token check
 const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
@@ -20,8 +23,8 @@ if (accessTokenMatch && expiresInMatch) {
   accessToken = accessTokenMatch[1];
   expiresIn = Number(expiresInMatch[1]);
   //redirects to the search page (wasn't loading)
-  // window.location.href =
-  //   "https://chrisiwebster.github.com/edit-playlist/#/search";
+  window.location.href =
+    "https://chrisiwebster.github.com/edit-playlist/#/search";
   //every second, removes a value from token, if expiresIn is 0, there is no accessToken.
   setInterval(() => {
     expiresIn--;
@@ -39,11 +42,11 @@ const SearchWrapper = () => {
   const [searchInput, setSearchInput] = useState("");
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [playlistName, setPlaylistName] = useState("New Playlist");
-  const [playlistInput, setPlaylistInput] = useState("");
+  const [playlistInput, setPlaylistInput] = useState("New Playlist");
 
   //Sign into Spotify
   const handleSignIn = () => {
-    window.location = `https://accounts.spotify.com/authorize?client_id=${id}&response_type=token&&scope=playlist-modify-public&redirect_uri=${redirect}`;
+    window.location = `https://accounts.spotify.com/authorize?client_id=${id}&response_type=token&scope=playlist-modify-public%20playlist-read-private%20playlist-read-collaborative&redirect_uri=${redirect}`;
   };
 
   //Search for tracks
@@ -69,7 +72,6 @@ const SearchWrapper = () => {
       .then((jsonResponse) => {
         if (!jsonResponse.tracks) {
           //if there are no tracks in the response
-          message = "There are no search results";
           return [];
         }
         console.log(jsonResponse);
@@ -86,7 +88,7 @@ const SearchWrapper = () => {
       });
   };
 
-  //Playlist functions
+  //Playlist add functions
   const addTrack = (track) => {
     //seeing if the track is already in the playlist
     if (
@@ -107,12 +109,12 @@ const SearchWrapper = () => {
   };
 
   const updatePlaylistName = (e) => {
-    setPlaylistName(e.target.value);
-    setPlaylistInput(playlistName);
+    setPlaylistInput(e.target.value);
+    setPlaylistName(playlistInput);
   };
 
   const handleClearNameInput = () => {
-    setPlaylistInput(playlistName);
+    setPlaylistInput("New Playlist");
   };
 
   const savePlaylist = (name, trackUris) => {
@@ -127,11 +129,14 @@ const SearchWrapper = () => {
       .then((response) => response.json())
       .then((jsonResponse) => {
         const userId = jsonResponse.id;
-        return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
-          headers: headers,
-          method: "POST",
-          body: JSON.stringify({ name: name }),
-        })
+        return fetch(
+          `https://api.spotify.com/v1/users/${userId}/playlists?limit=50`,
+          {
+            headers: headers,
+            method: "POST",
+            body: JSON.stringify({ name: name }),
+          }
+        )
           .then((response) => response.json())
           .then((jsonResponse) => {
             console.log(jsonResponse);
@@ -147,9 +152,10 @@ const SearchWrapper = () => {
           });
       });
   };
-
+  //When mounting
+  useEffect(() => {});
   return (
-    <div className="search-wrapper">
+    <div>
       <Search
         handleAPISearch={handleAPISearch}
         accessToken={accessToken}
@@ -159,28 +165,38 @@ const SearchWrapper = () => {
         searchInput={searchInput}
         handleSignIn={handleSignIn}
       />
+
       {expiresIn !== 0 && (
-        <div className="search-results-wrapper">
-          <SearchResults
-            searchTracks={searchTracks}
-            addTrack={addTrack}
-            message={message}
-          />
+        <div className="search-playlist-wrapper">
+          <div class="search-results-wrapper">
+            <h2>Search results ({searchTracks.length})</h2>
+            <SearchResults searchTracks={searchTracks} addTrack={addTrack} />
+          </div>
           {searchTracks && (
-            <Playlist
-              updatePlaylistName={updatePlaylistName}
-              removeTrack={removeTrack}
-              savePlaylist={savePlaylist}
-              setPlaylistName={setPlaylistName}
-              playlistTracks={playlistTracks}
-              searchTracks={searchTracks}
-              playlistName={playlistName}
-              setPlaylistTracks={setPlaylistTracks}
-              handleClearNameInput={handleClearNameInput}
-            />
+            <div className="playlist-wrapper">
+              <h2>Add to playlist</h2>
+              <Playlist
+                updatePlaylistName={updatePlaylistName}
+                removeTrack={removeTrack}
+                savePlaylist={savePlaylist}
+                setPlaylistName={setPlaylistName}
+                playlistTracks={playlistTracks}
+                searchTracks={searchTracks}
+                playlistName={playlistName}
+                playlistInput={playlistInput}
+                setPlaylistTracks={setPlaylistTracks}
+                handleClearNameInput={handleClearNameInput}
+              />
+            </div>
           )}
         </div>
       )}
+
+      <PlaylistView
+        className="hidden"
+        expiresIn={expiresIn}
+        accessToken={accessToken}
+      />
     </div>
   );
 };
