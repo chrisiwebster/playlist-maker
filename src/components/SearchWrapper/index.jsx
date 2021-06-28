@@ -24,7 +24,7 @@ if (accessTokenMatch && expiresInMatch) {
   expiresIn = Number(expiresInMatch[1]);
   //redirects to the search page (wasn't loading)
   window.location.href =
-    "https://chrisiwebster.github.com/edit-playlist/#/search";
+    "https://chrisiwebster.github.com/playlist-maker/#/search";
   //every second, removes a value from token, if expiresIn is 0, there is no accessToken.
   setInterval(() => {
     expiresIn--;
