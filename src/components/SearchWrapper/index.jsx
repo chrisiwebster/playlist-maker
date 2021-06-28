@@ -11,7 +11,7 @@ import PlaylistView from "../PlaylistView";
 
 //Variables
 const id = process.env.REACT_APP_SPOTIFY_KEY;
-const redirect = `http://localhost:3000/`;
+const redirect = `${window.location.href}/search`;
 let accessToken;
 let expiresIn = 0;
 
@@ -22,9 +22,6 @@ const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
 if (accessTokenMatch && expiresInMatch) {
   accessToken = accessTokenMatch[1];
   expiresIn = Number(expiresInMatch[1]);
-  //redirects to the search page (wasn't loading)
-  window.location.href =
-    "https://chrisiwebster.github.com/playlist-maker/#/search";
   //every second, removes a value from token, if expiresIn is 0, there is no accessToken.
   setInterval(() => {
     expiresIn--;
