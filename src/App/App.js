@@ -204,10 +204,10 @@ const App = () => {
         <NavBar handleNavClick={handleNavClick} status={status} />
       </Header>
       <Switch>
-        <Route path="/" exact>
+        <Route path="/playlist-maker" exact>
           <Home />
         </Route>
-        <Route path={"/search"} exact>
+        <Route path={"/playlist-maker/search"} exact>
           <SearchWrapper
             handleAPISearch={handleAPISearch}
             accessToken={accessToken}
@@ -229,7 +229,7 @@ const App = () => {
             handleClearNameInput={handleClearNameInput}
           />
         </Route>
-        <Route path="/view-playlists" exact>
+        <Route path="/playlist-maker/view-playlists" exact>
           <PlaylistView
             accessToken={accessToken}
             expiresIn={expiresIn}
