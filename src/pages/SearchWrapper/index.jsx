@@ -4,9 +4,9 @@ import React, { useEffect } from "react";
 import "./styles.css";
 
 //Components
-import SearchResults from "../SearchResults";
-import Search from "../Search";
-import Playlist from "../Playlist";
+import SearchResults from "../../components/SearchResults";
+import Search from "../../components/Search";
+import Playlist from "../../components/Playlist";
 
 //SearchWrapper
 const SearchWrapper = ({

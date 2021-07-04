@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 //Components
-import Button from "../Button";
+import Button from "../../components/Button";
 
 const PlaylistView = ({
   className,
@@ -13,7 +13,8 @@ const PlaylistView = ({
 }) => {
   useEffect(() => {
     document.title = "View playlists | Chrisi Webster";
-  });
+    viewPlaylists();
+  }, []);
 
   return (
     <div className={className}>
@@ -28,7 +29,6 @@ const PlaylistView = ({
       )}
       {expiresIn !== 0 && (
         <div>
-          <Button name="View playlists" onClick={() => viewPlaylists()} />
           <ul>
             {playlists.map((playlist) => {
               return <li key={playlist.id}>{playlist.name}</li>;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, HashRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./styles.css";
 
 const NavBar = ({ handleNavClick, status }) => {
@@ -12,28 +12,26 @@ const NavBar = ({ handleNavClick, status }) => {
         className={status === true ? "fas fa-times" : "fas fa-hamburger"}
       ></i>
       <nav>
-        <HashRouter>
-          <ul
-            className={status ? "navigation active" : "navigation"}
-            role="navigation"
-          >
-            <li onClick={() => handleNavClick()}>
-              <Link to="/" className="nav-item">
-                Home
-              </Link>
-            </li>
-            <li onClick={() => handleNavClick()}>
-              <Link to="/search" className="nav-item">
-                Search songs
-              </Link>
-            </li>
-            <li onClick={() => handleNavClick()}>
-              <Link to="/view-playlists" className="nav-item">
-                View playlists
-              </Link>
-            </li>
-          </ul>
-        </HashRouter>
+        <ul
+          className={status ? "navigation active" : "navigation"}
+          role="navigation"
+        >
+          <li onClick={() => handleNavClick()}>
+            <NavLink to="/" className="nav-item">
+              Home
+            </NavLink>
+          </li>
+          <li onClick={() => handleNavClick()}>
+            <NavLink to="/search" className="nav-item">
+              Search songs
+            </NavLink>
+          </li>
+          <li onClick={() => handleNavClick()}>
+            <NavLink to="/view-playlists" className="nav-item">
+              View playlists
+            </NavLink>
+          </li>
+        </ul>
       </nav>
     </div>
   );

@@ -23,6 +23,7 @@ const Playlist = ({
     savePlaylist(playlistName, trackURIs);
     setPlaylistName("New Playlist");
     setPlaylistTracks([]);
+    handleClearNameInput();
   };
 
   return (
@@ -32,7 +33,6 @@ const Playlist = ({
         id="playlist"
         value={playlistInput}
         onChange={(e) => updatePlaylistName(e)}
-        onBlur={() => handleClearNameInput()}
       />
 
       <TrackList

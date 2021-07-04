@@ -3,10 +3,6 @@ h2 {
   margin-left: 1em;
 }
 
-.hidden {
-  display: none;
-}
-
 .search-playlist-wrapper {
   display: flex;
 }

@@ -23,7 +23,7 @@ const Search = ({
           type="button"
           name="Sign in"
           id="sign"
-          onClick={() => handleSignIn()}
+          onClick={(e) => handleSignIn(e)}
         />
       )}
       {expiresIn !== 0 && (

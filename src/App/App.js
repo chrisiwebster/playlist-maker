@@ -1,40 +1,23 @@
 import React, { useState } from "react";
-import { HashRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 //Components
-import Header from "../Header";
-import NavBar from "../NavBar";
-import Home from "../Home";
-import PlaylistView from "../PlaylistView";
-import SearchWrapper from "../SearchWrapper";
+import Header from "../components/Header";
+import NavBar from "../components/NavBar";
+import Home from "../pages/Home";
+import PlaylistView from "../pages/PlaylistView";
+import SearchWrapper from "../pages/SearchWrapper";
 
 //CSS
 import "./App.css";
 
-////Variables
+//Variables
 const id = process.env.REACT_APP_SPOTIFY_KEY;
 const redirect = window.location.href;
 let accessToken;
 let expiresIn = 0;
 const scope =
   "playlist-read-private playlist-read-collaborative playlist-modify-public";
-
-//Access token check
-const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
-const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
-//if they're there grabs the right stuff
-if (accessTokenMatch && expiresInMatch) {
-  accessToken = accessTokenMatch[1];
-  expiresIn = Number(expiresInMatch[1]);
-  //every second, removes a value from token, if expiresIn is 0, there is no accessToken.
-  setInterval(() => {
-    expiresIn--;
-    if (expiresIn === 0) {
-      accessToken = "";
-      document.location.reload();
-    }
-  }, 1000);
-}
 
 //App component
 const App = () => {
@@ -43,11 +26,22 @@ const App = () => {
   const [searchTracks, setSearchTracks] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [playlistTracks, setPlaylistTracks] = useState([]);
-  const [playlistName, setPlaylistName] = useState("New Playlist");
+  const [playlistName, setPlaylistName] = useState("");
   const [playlistInput, setPlaylistInput] = useState("New Playlist");
   const [playlists, setPlaylists] = useState([]);
 
-  //NavBar
+  //Access token check
+  const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
+  const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
+  //if they're there grabs the right stuff
+  if (accessTokenMatch && expiresInMatch) {
+    accessToken = accessTokenMatch[1];
+    expiresIn = Number(expiresInMatch[1]);
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("expiresIn", expiresIn);
+  }
+
+  //NavBar open and close
   const handleNavClick = () => {
     status === true ? setStatus(false) : setStatus(true);
   };
@@ -55,6 +49,16 @@ const App = () => {
   //Sign into Spotify
   const handleSignIn = () => {
     window.location = `https://accounts.spotify.com/authorize?client_id=${id}&response_type=token&scope=${scope}&redirect_uri=${redirect}`;
+    //every second, removes a value from token, if expiresIn is 0, there is no accessToken.
+    setInterval(() => {
+      expiresIn--;
+
+      if (expiresIn === 0) {
+        accessToken = "";
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("expiresIn");
+      }
+    }, 1000);
   };
 
   //Search for tracks
@@ -194,60 +198,48 @@ const App = () => {
           });
       });
   };
-
   return (
     <div>
       <Header title="Playlist Maker">
         <NavBar handleNavClick={handleNavClick} status={status} />
       </Header>
-      <HashRouter basename={"/"}>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route
-            exact
-            path="/search"
-            render={(props) => (
-              <SearchWrapper
-                {...props}
-                handleAPISearch={handleAPISearch}
-                accessToken={accessToken}
-                expiresIn={expiresIn}
-                handleSignIn={handleSignIn}
-                searchInput={searchInput}
-                handleSearchInput={handleSearchInput}
-                handleClearSearchInput={handleClearSearchInput}
-                updatePlaylistName={updatePlaylistName}
-                removeTrack={removeTrack}
-                savePlaylist={savePlaylist}
-                setPlaylistName={setPlaylistName}
-                playlistTracks={playlistTracks}
-                searchTracks={searchTracks}
-                playlistName={playlistName}
-                playlistInput={playlistInput}
-                addTrack={addTrack}
-                setPlaylistTracks={setPlaylistTracks}
-                handleClearNameInput={handleClearNameInput}
-              />
-            )}
+      <Switch>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path={"/search"} exact>
+          <SearchWrapper
+            handleAPISearch={handleAPISearch}
+            accessToken={accessToken}
+            expiresIn={expiresIn}
+            handleSignIn={handleSignIn}
+            searchInput={searchInput}
+            handleSearchInput={handleSearchInput}
+            handleClearSearchInput={handleClearSearchInput}
+            updatePlaylistName={updatePlaylistName}
+            removeTrack={removeTrack}
+            savePlaylist={savePlaylist}
+            setPlaylistName={setPlaylistName}
+            playlistTracks={playlistTracks}
+            searchTracks={searchTracks}
+            playlistName={playlistName}
+            playlistInput={playlistInput}
+            addTrack={addTrack}
+            setPlaylistTracks={setPlaylistTracks}
+            handleClearNameInput={handleClearNameInput}
           />
-
-          <Route
-            exact
-            path="/view-playlists"
-            render={(props) => (
-              <PlaylistView
-                {...props}
-                accessToken={accessToken}
-                expiresIn={expiresIn}
-                viewPlaylists={viewPlaylists}
-                setPlaylists={setPlaylists}
-                playlists={playlists}
-                handleSignIn={handleSignIn}
-              />
-            )}
+        </Route>
+        <Route path="/view-playlists" exact>
+          <PlaylistView
+            accessToken={accessToken}
+            expiresIn={expiresIn}
+            viewPlaylists={viewPlaylists}
+            setPlaylists={setPlaylists}
+            playlists={playlists}
+            handleSignIn={handleSignIn}
           />
-        </Switch>
-      </HashRouter>
+        </Route>
+      </Switch>
     </div>
   );
 };
