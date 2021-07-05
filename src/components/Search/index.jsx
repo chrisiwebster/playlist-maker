@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //Components
 import Button from "../Button";
@@ -15,7 +15,11 @@ const Search = ({
   searchInput,
   handleSearchInput,
   handleClearSearchInput,
+  checkAccessToken,
 }) => {
+  useEffect(() => {
+    checkAccessToken();
+  }, []);
   return (
     <div className="search-buttons">
       {!accessToken && (

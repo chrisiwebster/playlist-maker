@@ -28,6 +28,7 @@ const SearchWrapper = ({
   playlistInput,
   setPlaylistTracks,
   handleClearNameInput,
+  checkAccessToken,
 }) => {
   //When mounting
   useEffect(() => {
@@ -43,6 +44,7 @@ const SearchWrapper = ({
         handleClearSearchInput={handleClearSearchInput}
         searchInput={searchInput}
         handleSignIn={handleSignIn}
+        checkAccessToken={checkAccessToken}
       />
 
       {expiresIn !== 0 && (

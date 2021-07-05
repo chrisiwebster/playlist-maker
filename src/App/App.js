@@ -14,14 +14,14 @@ import "./App.css";
 //Variables
 const id = process.env.REACT_APP_SPOTIFY_KEY;
 const redirect = window.location.href;
-let accessToken;
-let expiresIn = 0;
 const scope =
   "playlist-read-private playlist-read-collaborative playlist-modify-public";
 
 //App component
 const App = () => {
   const [status, setStatus] = useState(false);
+  const [expiresIn, setExpiresIn] = useState();
+  const [accessToken, setAccessToken] = useState("");
   const [searchTerm, setSearchTerm] = useState();
   const [searchTracks, setSearchTracks] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -30,16 +30,30 @@ const App = () => {
   const [playlistInput, setPlaylistInput] = useState("New Playlist");
   const [playlists, setPlaylists] = useState([]);
 
-  //Access token check
-  const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
-  const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
-  //if they're there grabs the right stuff
-  if (accessTokenMatch && expiresInMatch) {
-    accessToken = accessTokenMatch[1];
-    expiresIn = Number(expiresInMatch[1]);
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("expiresIn", expiresIn);
-  }
+  const checkAccessToken = async () => {
+    //Check access token in URL
+    const accessTokenMatch = await window.location.href.match(
+      /access_token=([^&]*)/
+    );
+    const expiresInMatch = await window.location.href.match(
+      /expires_in=([^&]*)/
+    );
+    //if they're there grabs the right stuff
+    if (accessTokenMatch && expiresInMatch) {
+      setAccessToken(accessTokenMatch[1]);
+      setExpiresIn(Number(expiresInMatch[1]));
+      //every second, removes a value from token, if expiresIn is 0, there is no accessToken.
+      setInterval(() => {
+        setExpiresIn((prevState) => {
+          return prevState - 1;
+        });
+
+        if (expiresIn === 0) {
+          setExpiresIn("");
+        }
+      }, 1000);
+    }
+  };
 
   //NavBar open and close
   const handleNavClick = () => {
@@ -49,16 +63,6 @@ const App = () => {
   //Sign into Spotify
   const handleSignIn = () => {
     window.location = `https://accounts.spotify.com/authorize?client_id=${id}&response_type=token&scope=${scope}&redirect_uri=${redirect}`;
-    //every second, removes a value from token, if expiresIn is 0, there is no accessToken.
-    setInterval(() => {
-      expiresIn--;
-
-      if (expiresIn === 0) {
-        accessToken = "";
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("expiresIn");
-      }
-    }, 1000);
   };
 
   //Search for tracks
@@ -209,6 +213,7 @@ const App = () => {
         </Route>
         <Route path={"/playlist-maker/search"} exact>
           <SearchWrapper
+            checkAccessToken={checkAccessToken}
             handleAPISearch={handleAPISearch}
             accessToken={accessToken}
             expiresIn={expiresIn}
@@ -231,6 +236,7 @@ const App = () => {
         </Route>
         <Route path="/playlist-maker/view-playlists" exact>
           <PlaylistView
+            checkAccessToken={checkAccessToken}
             accessToken={accessToken}
             expiresIn={expiresIn}
             viewPlaylists={viewPlaylists}

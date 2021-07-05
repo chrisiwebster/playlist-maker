@@ -10,9 +10,11 @@ const PlaylistView = ({
   playlists,
   viewPlaylists,
   handleSignIn,
+  checkAccessToken,
 }) => {
   useEffect(() => {
     document.title = "View playlists | Chrisi Webster";
+    checkAccessToken();
     viewPlaylists();
   }, []);
 
