@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { Redirect } from "react-router";
+import SearchWrapper from "../../pages/SearchWrapper";
 
 //Components
 import Button from "../Button";
@@ -27,10 +29,12 @@ const Search = ({
           type="button"
           name="Sign in"
           id="sign"
-          onClick={(e) => handleSignIn(e)}
+          onClick={() => {
+            handleSignIn("https://chrisiwebster.github.io/search");
+          }}
         />
       )}
-      {expiresIn !== "" && (
+      {expiresIn !== undefined && (
         <form id="search" onSubmit={(e) => handleAPISearch(e)}>
           <Input
             type="text"

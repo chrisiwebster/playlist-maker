@@ -13,7 +13,6 @@ import "./App.css";
 
 //Variables
 const id = process.env.REACT_APP_SPOTIFY_KEY;
-const redirect = window.location.href;
 const scope =
   "playlist-read-private playlist-read-collaborative playlist-modify-public";
 
@@ -21,6 +20,7 @@ const scope =
 const App = () => {
   //State
   const [status, setStatus] = useState(false);
+  const [redirect, setRedirect] = useState(null);
   const [expiresIn, setExpiresIn] = useState();
   const [accessToken, setAccessToken] = useState("");
   const [searchTerm, setSearchTerm] = useState();
@@ -62,8 +62,9 @@ const App = () => {
   };
 
   //Sign into Spotify
-  const handleSignIn = () => {
-    window.location = `https://accounts.spotify.com/authorize?client_id=${id}&response_type=token&scope=${scope}&redirect_uri=${redirect}`;
+  const handleSignIn = (redirect) => {
+    setRedirect(redirect);
+    return (window.location = `https://accounts.spotify.com/authorize?client_id=${id}&response_type=token&scope=${scope}&redirect_uri=${redirect}`);
   };
 
   //Search for tracks
@@ -209,43 +210,48 @@ const App = () => {
         <NavBar handleNavClick={handleNavClick} status={status} />
       </Header>
       <Switch>
-        <Route to="/">
-          <Home />
-        </Route>
-        <Route path={"/search"}>
-          <SearchWrapper
-            checkAccessToken={checkAccessToken}
-            handleAPISearch={handleAPISearch}
-            accessToken={accessToken}
-            expiresIn={expiresIn}
-            handleSignIn={handleSignIn}
-            searchInput={searchInput}
-            handleSearchInput={handleSearchInput}
-            handleClearSearchInput={handleClearSearchInput}
-            updatePlaylistName={updatePlaylistName}
-            removeTrack={removeTrack}
-            savePlaylist={savePlaylist}
-            setPlaylistName={setPlaylistName}
-            playlistTracks={playlistTracks}
-            searchTracks={searchTracks}
-            playlistName={playlistName}
-            playlistInput={playlistInput}
-            addTrack={addTrack}
-            setPlaylistTracks={setPlaylistTracks}
-            handleClearNameInput={handleClearNameInput}
-          />
-        </Route>
-        <Route path="/view-playlists">
-          <PlaylistView
-            checkAccessToken={checkAccessToken}
-            accessToken={accessToken}
-            expiresIn={expiresIn}
-            viewPlaylists={viewPlaylists}
-            setPlaylists={setPlaylists}
-            playlists={playlists}
-            handleSignIn={handleSignIn}
-          />
-        </Route>
+        <Route exact path="/" render={() => <Home />} />
+        <Route
+          path={"/search"}
+          render={() => (
+            <SearchWrapper
+              checkAccessToken={checkAccessToken}
+              handleAPISearch={handleAPISearch}
+              accessToken={accessToken}
+              expiresIn={expiresIn}
+              handleSignIn={handleSignIn}
+              searchInput={searchInput}
+              handleSearchInput={handleSearchInput}
+              handleClearSearchInput={handleClearSearchInput}
+              updatePlaylistName={updatePlaylistName}
+              removeTrack={removeTrack}
+              savePlaylist={savePlaylist}
+              setPlaylistName={setPlaylistName}
+              playlistTracks={playlistTracks}
+              searchTracks={searchTracks}
+              playlistName={playlistName}
+              playlistInput={playlistInput}
+              addTrack={addTrack}
+              setPlaylistTracks={setPlaylistTracks}
+              handleClearNameInput={handleClearNameInput}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/view-playlists"
+          render={() => (
+            <PlaylistView
+              checkAccessToken={checkAccessToken}
+              accessToken={accessToken}
+              expiresIn={expiresIn}
+              viewPlaylists={viewPlaylists}
+              setPlaylists={setPlaylists}
+              playlists={playlists}
+              handleSignIn={handleSignIn}
+            />
+          )}
+        />
       </Switch>
     </div>
   );

@@ -29,11 +29,14 @@ const SearchWrapper = ({
   setPlaylistTracks,
   handleClearNameInput,
   checkAccessToken,
+  scope,
+  id,
 }) => {
   //When mounting
   useEffect(() => {
     document.title = "Search | Chrisi Webster";
   });
+
   return (
     <div>
       <Search
@@ -45,9 +48,11 @@ const SearchWrapper = ({
         searchInput={searchInput}
         handleSignIn={handleSignIn}
         checkAccessToken={checkAccessToken}
+        scope={scope}
+        id={id}
       />
 
-      {expiresIn !== 0 && (
+      {expiresIn !== undefined && (
         <div className="search-playlist-wrapper">
           <div className="search-results-wrapper">
             <h2>Search results ({searchTracks.length})</h2>

@@ -26,10 +26,12 @@ const PlaylistView = ({
           type="button"
           name="Sign in"
           id="sign"
-          onClick={() => handleSignIn()}
+          onClick={() =>
+            handleSignIn("https://chrisiwebster.github.io/view-playlists")
+          }
         />
       )}
-      {expiresIn !== "" && (
+      {expiresIn !== undefined && (
         <div>
           <ul>
             {playlists.map((playlist) => {
