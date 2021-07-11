@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/playlist-maker/static/css/main.f5d67fd2.chunk.css",
-    "main.js": "/playlist-maker/static/js/main.95031c6f.chunk.js",
-    "main.js.map": "/playlist-maker/static/js/main.95031c6f.chunk.js.map",
+    "main.js": "/playlist-maker/static/js/main.9e599d38.chunk.js",
+    "main.js.map": "/playlist-maker/static/js/main.9e599d38.chunk.js.map",
     "runtime-main.js": "/playlist-maker/static/js/runtime-main.c2419383.js",
     "runtime-main.js.map": "/playlist-maker/static/js/runtime-main.c2419383.js.map",
     "static/js/2.1f360187.chunk.js": "/playlist-maker/static/js/2.1f360187.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.c2419383.js",
     "static/js/2.1f360187.chunk.js",
     "static/css/main.f5d67fd2.chunk.css",
-    "static/js/main.95031c6f.chunk.js"
+    "static/js/main.9e599d38.chunk.js"
   ]
 }
