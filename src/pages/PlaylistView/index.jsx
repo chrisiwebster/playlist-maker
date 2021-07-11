@@ -20,8 +20,8 @@ const PlaylistView = ({
 
   return (
     <div className={className}>
-      <h2>PlaylistView</h2>
-      {!accessToken && (
+      <h2>View your playlists</h2>
+      {accessToken === "" && (
         <Button
           type="button"
           name="Sign in"
@@ -29,11 +29,11 @@ const PlaylistView = ({
           onClick={() => handleSignIn()}
         />
       )}
-      {expiresIn !== 0 && (
+      {expiresIn !== "" && (
         <div>
           <ul>
             {playlists.map((playlist) => {
-              return <li key={playlist.id}>{playlist.name}</li>;
+              return <div key={playlist.id}>{playlist.name}</div>;
             })}
           </ul>
         </div>

@@ -30,7 +30,7 @@ const Search = ({
           onClick={(e) => handleSignIn(e)}
         />
       )}
-      {expiresIn !== 0 && (
+      {expiresIn !== "" && (
         <form id="search" onSubmit={(e) => handleAPISearch(e)}>
           <Input
             type="text"

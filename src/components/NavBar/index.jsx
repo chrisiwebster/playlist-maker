@@ -17,17 +17,17 @@ const NavBar = ({ handleNavClick, status }) => {
           role="navigation"
         >
           <li onClick={() => handleNavClick()}>
-            <NavLink to="/playlist-maker" className="nav-item">
+            <NavLink to="/" className="nav-item">
               Home
             </NavLink>
           </li>
           <li onClick={() => handleNavClick()}>
-            <NavLink to="/playlist-maker/search" className="nav-item">
+            <NavLink to="/search" className="nav-item">
               Search songs
             </NavLink>
           </li>
           <li onClick={() => handleNavClick()}>
-            <NavLink to="/playlist-maker/view-playlists" className="nav-item">
+            <NavLink to="/view-playlists" className="nav-item">
               View playlists
             </NavLink>
           </li>

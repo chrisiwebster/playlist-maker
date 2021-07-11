@@ -19,6 +19,7 @@ const scope =
 
 //App component
 const App = () => {
+  //State
   const [status, setStatus] = useState(false);
   const [expiresIn, setExpiresIn] = useState();
   const [accessToken, setAccessToken] = useState("");
@@ -78,7 +79,7 @@ const App = () => {
   const handleAPISearch = (e) => {
     e.preventDefault();
     fetch(
-      `https://api.spotify.com/v1/search?type=track&q=${searchTerm}?limit=50`,
+      `https://api.spotify.com/v1/search?type=track&q=${searchTerm}&limit=50`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -208,10 +209,10 @@ const App = () => {
         <NavBar handleNavClick={handleNavClick} status={status} />
       </Header>
       <Switch>
-        <Route path="/playlist-maker" exact>
+        <Route to="/">
           <Home />
         </Route>
-        <Route path={"/playlist-maker/search"} exact>
+        <Route path={"/search"}>
           <SearchWrapper
             checkAccessToken={checkAccessToken}
             handleAPISearch={handleAPISearch}
@@ -234,7 +235,7 @@ const App = () => {
             handleClearNameInput={handleClearNameInput}
           />
         </Route>
-        <Route path="/playlist-maker/view-playlists" exact>
+        <Route path="/view-playlists">
           <PlaylistView
             checkAccessToken={checkAccessToken}
             accessToken={accessToken}
