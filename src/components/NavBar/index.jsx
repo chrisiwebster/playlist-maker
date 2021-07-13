@@ -1,16 +1,27 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import "./styles.css";
 
-const NavBar = ({ handleNavClick, status }) => {
+//components
+import Button from "../Button";
+
+const NavBar = ({ handleNavClick, status, expiresIn, accessToken }) => {
   return (
     <div className="nav-wrapper">
-      <i
-        tabIndex="0"
-        onKeyDown={() => handleNavClick()}
-        onClick={() => handleNavClick()}
-        className={status === true ? "fas fa-times" : "fas fa-hamburger"}
-      ></i>
+      <div id="icon-wrapper">
+        <i
+          tabIndex="0"
+          onKeyDown={() => handleNavClick()}
+          onClick={() => handleNavClick()}
+          className={status === true ? "fas fa-times" : "fas fa-hamburger"}
+        ></i>
+        {accessToken === "" && (
+          <Link to="/">
+            <Button type="button" name="Sign in" />
+          </Link>
+        )}
+        {expiresIn !== undefined && <p>Signed in</p>}
+      </div>
       <nav>
         <ul
           className={status ? "navigation active" : "navigation"}

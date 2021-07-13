@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Switch, Route } from "react-router-dom";
 
 //Components
@@ -15,12 +15,13 @@ import "./App.css";
 const id = process.env.REACT_APP_SPOTIFY_KEY;
 const scope =
   "playlist-read-private playlist-read-collaborative playlist-modify-public";
+const redirect = `http://localhost:3000/`;
 
 //App component
 const App = () => {
   //State
   const [status, setStatus] = useState(false);
-  const [redirect, setRedirect] = useState(null);
+  // const [redirect, setRedirect] = useState(null);
   const [expiresIn, setExpiresIn] = useState();
   const [accessToken, setAccessToken] = useState("");
   const [searchTerm, setSearchTerm] = useState();
@@ -31,14 +32,10 @@ const App = () => {
   const [playlistInput, setPlaylistInput] = useState("New Playlist");
   const [playlists, setPlaylists] = useState([]);
 
-  const checkAccessToken = async () => {
+  const checkAccessToken = useCallback(() => {
     //Check access token in URL
-    const accessTokenMatch = await window.location.href.match(
-      /access_token=([^&]*)/
-    );
-    const expiresInMatch = await window.location.href.match(
-      /expires_in=([^&]*)/
-    );
+    const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
+    const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
     //if they're there grabs the right stuff
     if (accessTokenMatch && expiresInMatch) {
       setAccessToken(accessTokenMatch[1]);
@@ -54,7 +51,7 @@ const App = () => {
         }
       }, 1000);
     }
-  };
+  }, [expiresIn]);
 
   //NavBar open and close
   const handleNavClick = () => {
@@ -62,9 +59,8 @@ const App = () => {
   };
 
   //Sign into Spotify
-  const handleSignIn = (redirect) => {
-    setRedirect(redirect);
-    return (window.location = `https://accounts.spotify.com/authorize?client_id=${id}&response_type=token&scope=${scope}&redirect_uri=${redirect}`);
+  const handleSignIn = () => {
+    window.location = `https://accounts.spotify.com/authorize?client_id=${id}&response_type=token&scope=${scope}&redirect_uri=${redirect}`;
   };
 
   //Search for tracks
@@ -172,9 +168,9 @@ const App = () => {
   };
 
   //View playlist functions
-  const viewPlaylists = () => {
+  const viewPlaylists = useCallback(async () => {
     const headers = { Authorization: `Bearer ${accessToken}` };
-    return fetch("https://api.spotify.com/v1/me", {
+    return await fetch("https://api.spotify.com/v1/me", {
       headers: headers,
     })
       .then((response) => response.json())
@@ -203,14 +199,30 @@ const App = () => {
             setPlaylists(jsonResponse);
           });
       });
-  };
+  }, [accessToken]);
   return (
     <div>
       <Header title="Playlist Maker">
-        <NavBar handleNavClick={handleNavClick} status={status} />
+        <NavBar
+          handleNavClick={handleNavClick}
+          status={status}
+          expiresIn={expiresIn}
+          accessToken={accessToken}
+        />
       </Header>
       <Switch>
-        <Route exact path="/" render={() => <Home />} />
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <Home
+              checkAccessToken={checkAccessToken}
+              accessToken={accessToken}
+              expiresIn={expiresIn}
+              handleSignIn={handleSignIn}
+            />
+          )}
+        />
         <Route
           path={"/search"}
           render={() => (

@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router basename={"/playlist-maker"}>
+    <Router basename={"/"}>
       <App />
     </Router>
   </React.StrictMode>,

@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { Redirect } from "react-router";
-import SearchWrapper from "../../pages/SearchWrapper";
 
 //Components
 import Button from "../Button";
@@ -13,7 +11,6 @@ const Search = ({
   handleAPISearch,
   accessToken,
   expiresIn,
-  handleSignIn,
   searchInput,
   handleSearchInput,
   handleClearSearchInput,
@@ -21,19 +18,10 @@ const Search = ({
 }) => {
   useEffect(() => {
     checkAccessToken();
-  }, []);
+  }, [checkAccessToken]);
   return (
     <div className="search-buttons">
-      {!accessToken && (
-        <Button
-          type="button"
-          name="Sign in"
-          id="sign"
-          onClick={() => {
-            handleSignIn("https://chrisiwebster.github.io/search");
-          }}
-        />
-      )}
+      {!accessToken && <p>You need to sign in</p>}
       {expiresIn !== undefined && (
         <form id="search" onSubmit={(e) => handleAPISearch(e)}>
           <Input
