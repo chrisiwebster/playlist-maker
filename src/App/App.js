@@ -213,51 +213,41 @@ const App = () => {
         />
       </Header>
       <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <Home
-              checkAccessToken={checkAccessToken}
-              accessToken={accessToken}
-              expiresIn={expiresIn}
-            />
-          )}
-        />
-        <Route
-          path={"/search"}
-          render={() => (
-            <SearchWrapper
-              handleAPISearch={handleAPISearch}
-              searchInput={searchInput}
-              handleSearchInput={handleSearchInput}
-              handleClearSearchInput={handleClearSearchInput}
-              updatePlaylistName={updatePlaylistName}
-              removeTrack={removeTrack}
-              savePlaylist={savePlaylist}
-              setPlaylistName={setPlaylistName}
-              playlistTracks={playlistTracks}
-              searchTracks={searchTracks}
-              playlistName={playlistName}
-              playlistInput={playlistInput}
-              addTrack={addTrack}
-              setPlaylistTracks={setPlaylistTracks}
-              handleClearNameInput={handleClearNameInput}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/view-playlists"
-          render={() => (
-            <PlaylistView
-              viewPlaylists={viewPlaylists}
-              setPlaylists={setPlaylists}
-              playlists={playlists}
-              handleSignIn={handleSignIn}
-            />
-          )}
-        />
+        <Route exact path="/">
+          xs
+          <Home
+            checkAccessToken={checkAccessToken}
+            accessToken={accessToken}
+            expiresIn={expiresIn}
+          />
+        </Route>
+        <Route path={"/search"}>
+          <SearchWrapper
+            handleAPISearch={handleAPISearch}
+            searchInput={searchInput}
+            handleSearchInput={handleSearchInput}
+            handleClearSearchInput={handleClearSearchInput}
+            updatePlaylistName={updatePlaylistName}
+            removeTrack={removeTrack}
+            savePlaylist={savePlaylist}
+            setPlaylistName={setPlaylistName}
+            playlistTracks={playlistTracks}
+            searchTracks={searchTracks}
+            playlistName={playlistName}
+            playlistInput={playlistInput}
+            addTrack={addTrack}
+            setPlaylistTracks={setPlaylistTracks}
+            handleClearNameInput={handleClearNameInput}
+          />
+        </Route>
+        <Route exact path="/view-playlists">
+          <PlaylistView
+            viewPlaylists={viewPlaylists}
+            setPlaylists={setPlaylists}
+            playlists={playlists}
+            handleSignIn={handleSignIn}
+          />
+        </Route>
       </Switch>
     </div>
   );
