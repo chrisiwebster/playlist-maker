@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/playlist-maker/static/css/main.f1f2232f.chunk.css",
-    "main.js": "/playlist-maker/static/js/main.393dc619.chunk.js",
-    "main.js.map": "/playlist-maker/static/js/main.393dc619.chunk.js.map",
+    "main.css": "/playlist-maker/static/css/main.c2e237eb.chunk.css",
+    "main.js": "/playlist-maker/static/js/main.93e3f3ae.chunk.js",
+    "main.js.map": "/playlist-maker/static/js/main.93e3f3ae.chunk.js.map",
     "runtime-main.js": "/playlist-maker/static/js/runtime-main.c2419383.js",
     "runtime-main.js.map": "/playlist-maker/static/js/runtime-main.c2419383.js.map",
-    "static/js/2.6a1aa822.chunk.js": "/playlist-maker/static/js/2.6a1aa822.chunk.js",
-    "static/js/2.6a1aa822.chunk.js.map": "/playlist-maker/static/js/2.6a1aa822.chunk.js.map",
+    "static/js/2.a07251f9.chunk.js": "/playlist-maker/static/js/2.a07251f9.chunk.js",
+    "static/js/2.a07251f9.chunk.js.map": "/playlist-maker/static/js/2.a07251f9.chunk.js.map",
     "index.html": "/playlist-maker/index.html",
-    "static/css/main.f1f2232f.chunk.css.map": "/playlist-maker/static/css/main.f1f2232f.chunk.css.map",
-    "static/js/2.6a1aa822.chunk.js.LICENSE.txt": "/playlist-maker/static/js/2.6a1aa822.chunk.js.LICENSE.txt"
+    "static/css/main.c2e237eb.chunk.css.map": "/playlist-maker/static/css/main.c2e237eb.chunk.css.map",
+    "static/js/2.a07251f9.chunk.js.LICENSE.txt": "/playlist-maker/static/js/2.a07251f9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.c2419383.js",
-    "static/js/2.6a1aa822.chunk.js",
-    "static/css/main.f1f2232f.chunk.css",
-    "static/js/main.393dc619.chunk.js"
+    "static/js/2.a07251f9.chunk.js",
+    "static/css/main.c2e237eb.chunk.css",
+    "static/js/main.93e3f3ae.chunk.js"
   ]
 }
