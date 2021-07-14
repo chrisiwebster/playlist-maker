@@ -1,0 +1,13 @@
+header {
+  grid-row: span 2;
+  grid-column: span 4;
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  background: #bec989;
+  font-family: "Roboto Mono";
+}
+
+img {
+  width: 50%;
+}

@@ -2,7 +2,6 @@ import React, { useState, useCallback, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 
 //Components
-import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import Home from "../pages/Home";
 import PlaylistView from "../pages/PlaylistView";
@@ -203,18 +202,15 @@ const App = () => {
   });
   return (
     <div>
-      <Header title="Playlist Maker">
-        <NavBar
-          handleNavClick={handleNavClick}
-          status={status}
-          expiresIn={expiresIn}
-          accessToken={accessToken}
-          handleSignIn={handleSignIn}
-        />
-      </Header>
+      <NavBar
+        handleNavClick={handleNavClick}
+        status={status}
+        expiresIn={expiresIn}
+        accessToken={accessToken}
+        handleSignIn={handleSignIn}
+      />
       <Switch>
         <Route exact path="/">
-          xs
           <Home
             checkAccessToken={checkAccessToken}
             accessToken={accessToken}

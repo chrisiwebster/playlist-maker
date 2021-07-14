@@ -1,6 +1,6 @@
-.nav-wrapper {
+/* .nav-wrapper {
   background: #bec989;
-}
+} */
 
 nav {
   height: 0;
@@ -43,7 +43,7 @@ a.nav-item:visited {
   display: block;
   padding: 20px;
   color: white;
-  background: #bec989;
+  /* background: #bec989; */
   transition: color 0.2s, background 0.5s;
 }
 
