@@ -90,7 +90,6 @@ const App = () => {
           //if there are no tracks in the response
           return [];
         }
-        console.log(jsonResponse);
         return jsonResponse.tracks.items.map((track) => ({
           id: track.id,
           name: track.name,
@@ -152,7 +151,6 @@ const App = () => {
         })
           .then((response) => response.json())
           .then((jsonResponse) => {
-            console.log(jsonResponse);
             const playlistId = jsonResponse.id;
             return fetch(
               `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`,
@@ -186,7 +184,6 @@ const App = () => {
             .then((response) => response.json())
             .then((jsonResponse) => {
               if (jsonResponse.items) {
-                console.log(jsonResponse.items);
                 return jsonResponse.items.map((playlist) => ({
                   id: playlist.id,
                   name: playlist.name,
