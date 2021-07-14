@@ -2,19 +2,10 @@
   background: #bec989;
 }
 
-#icon-wrapper {
-  display: flex;
-  justify-content: space-between;
-}
-
-#icon-wrapper button,
-#icon-wrapper p {
-  margin-right: 0.5em;
-}
-
 nav {
   height: 0;
 }
+
 .navigation {
   /* critical sizing and position styles */
   font-size: 1.25em;

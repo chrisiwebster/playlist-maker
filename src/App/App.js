@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 
 //Components
@@ -15,13 +15,13 @@ import "./App.css";
 const id = process.env.REACT_APP_SPOTIFY_KEY;
 const scope =
   "playlist-read-private playlist-read-collaborative playlist-modify-public";
-const redirect = `https://chrisiwebster.github.io/playlist-maker`;
+// const redirect = `https://chrisiwebster.github.io/playlist-maker`;
+const redirect = "http://localhost:3000/";
 
 //App component
 const App = () => {
   //State
   const [status, setStatus] = useState(false);
-  // const [redirect, setRedirect] = useState(null);
   const [expiresIn, setExpiresIn] = useState();
   const [accessToken, setAccessToken] = useState("");
   const [searchTerm, setSearchTerm] = useState();
@@ -168,38 +168,43 @@ const App = () => {
   };
 
   //View playlist functions
-  const viewPlaylists = useCallback(async () => {
+  const viewPlaylists = useCallback(() => {
     const headers = { Authorization: `Bearer ${accessToken}` };
-    return await fetch("https://api.spotify.com/v1/me", {
-      headers: headers,
-    })
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        const userId = jsonResponse.id;
-        return fetch(
-          `https://api.spotify.com/v1/users/${userId}/playlists?limit=50`,
-          {
-            headers: headers,
-            method: "GET",
-          }
-        )
-          .then((response) => response.json())
-          .then((jsonResponse) => {
-            if (jsonResponse.items) {
-              console.log(jsonResponse.items);
-              return jsonResponse.items.map((playlist) => ({
-                id: playlist.id,
-                name: playlist.name,
-              }));
-            } else {
-              return [];
+    if (window.location)
+      return fetch("https://api.spotify.com/v1/me", {
+        headers: headers,
+      })
+        .then((response) => response.json())
+        .then((jsonResponse) => {
+          const userId = jsonResponse.id;
+          return fetch(
+            `https://api.spotify.com/v1/users/${userId}/playlists?limit=50`,
+            {
+              headers: headers,
+              method: "GET",
             }
-          })
-          .then((jsonResponse) => {
-            setPlaylists(jsonResponse);
-          });
-      });
+          )
+            .then((response) => response.json())
+            .then((jsonResponse) => {
+              if (jsonResponse.items) {
+                console.log(jsonResponse.items);
+                return jsonResponse.items.map((playlist) => ({
+                  id: playlist.id,
+                  name: playlist.name,
+                }));
+              } else {
+                return [];
+              }
+            })
+            .then((jsonResponse) => {
+              setPlaylists(jsonResponse);
+            });
+        });
   }, [accessToken]);
+
+  useEffect(() => {
+    checkAccessToken();
+  });
   return (
     <div>
       <Header title="Playlist Maker">
@@ -208,6 +213,7 @@ const App = () => {
           status={status}
           expiresIn={expiresIn}
           accessToken={accessToken}
+          handleSignIn={handleSignIn}
         />
       </Header>
       <Switch>
@@ -219,7 +225,6 @@ const App = () => {
               checkAccessToken={checkAccessToken}
               accessToken={accessToken}
               expiresIn={expiresIn}
-              handleSignIn={handleSignIn}
             />
           )}
         />
@@ -227,11 +232,7 @@ const App = () => {
           path={"/search"}
           render={() => (
             <SearchWrapper
-              checkAccessToken={checkAccessToken}
               handleAPISearch={handleAPISearch}
-              accessToken={accessToken}
-              expiresIn={expiresIn}
-              handleSignIn={handleSignIn}
               searchInput={searchInput}
               handleSearchInput={handleSearchInput}
               handleClearSearchInput={handleClearSearchInput}
@@ -254,9 +255,6 @@ const App = () => {
           path="/view-playlists"
           render={() => (
             <PlaylistView
-              checkAccessToken={checkAccessToken}
-              accessToken={accessToken}
-              expiresIn={expiresIn}
               viewPlaylists={viewPlaylists}
               setPlaylists={setPlaylists}
               playlists={playlists}

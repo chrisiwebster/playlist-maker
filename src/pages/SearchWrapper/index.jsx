@@ -13,7 +13,6 @@ const SearchWrapper = ({
   expiresIn,
   accessToken,
   handleAPISearch,
-  handleSignIn,
   searchInput,
   addTrack,
   handleSearchInput,
@@ -28,9 +27,6 @@ const SearchWrapper = ({
   playlistInput,
   setPlaylistTracks,
   handleClearNameInput,
-  checkAccessToken,
-  scope,
-  id,
 }) => {
   //When mounting
   useEffect(() => {
@@ -41,42 +37,33 @@ const SearchWrapper = ({
     <div>
       <Search
         handleAPISearch={handleAPISearch}
-        accessToken={accessToken}
-        expiresIn={expiresIn}
         handleSearchInput={handleSearchInput}
         handleClearSearchInput={handleClearSearchInput}
         searchInput={searchInput}
-        handleSignIn={handleSignIn}
-        checkAccessToken={checkAccessToken}
-        scope={scope}
-        id={id}
       />
-
-      {expiresIn !== undefined && (
-        <div className="search-playlist-wrapper">
-          <div className="search-results-wrapper">
-            <h2>Search results ({searchTracks.length})</h2>
-            <SearchResults searchTracks={searchTracks} addTrack={addTrack} />
-          </div>
-          {searchTracks && (
-            <div className="playlist-wrapper">
-              <h2>Add to playlist</h2>
-              <Playlist
-                updatePlaylistName={updatePlaylistName}
-                removeTrack={removeTrack}
-                savePlaylist={savePlaylist}
-                setPlaylistName={setPlaylistName}
-                playlistTracks={playlistTracks}
-                searchTracks={searchTracks}
-                playlistName={playlistName}
-                playlistInput={playlistInput}
-                setPlaylistTracks={setPlaylistTracks}
-                handleClearNameInput={handleClearNameInput}
-              />
-            </div>
-          )}
+      <div className="search-playlist-wrapper">
+        <div className="search-results-wrapper">
+          <h2>Search results ({searchTracks.length})</h2>
+          <SearchResults searchTracks={searchTracks} addTrack={addTrack} />
         </div>
-      )}
+        {searchTracks && (
+          <div className="playlist-wrapper">
+            <h2>Add to playlist</h2>
+            <Playlist
+              updatePlaylistName={updatePlaylistName}
+              removeTrack={removeTrack}
+              savePlaylist={savePlaylist}
+              setPlaylistName={setPlaylistName}
+              playlistTracks={playlistTracks}
+              searchTracks={searchTracks}
+              playlistName={playlistName}
+              playlistInput={playlistInput}
+              setPlaylistTracks={setPlaylistTracks}
+              handleClearNameInput={handleClearNameInput}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

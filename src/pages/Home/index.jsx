@@ -1,23 +1,10 @@
-import React, { useEffect } from "react";
-
-//Components
-import Button from "../../components/Button";
+import React from "react";
 
 const Home = ({ checkAccessToken, handleSignIn, accessToken, expiresIn }) => {
-  useEffect(() => {
-    checkAccessToken();
-  }, [checkAccessToken]);
   return (
     <div className="home">
       <h2>I am home</h2>
-      {accessToken === "" && (
-        <Button
-          type="button"
-          name="Sign in"
-          id="sign"
-          onClick={() => handleSignIn()}
-        />
-      )}
+      {accessToken === "" && "sign in"}
       {expiresIn !== undefined && <p>You're good to go</p>}
     </div>
   );
