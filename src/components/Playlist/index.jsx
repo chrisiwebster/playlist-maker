@@ -27,27 +27,30 @@ const Playlist = ({
   };
 
   return (
-    <form id="playlist-form" onSubmit={(e) => handleSavePlaylist(e)}>
-      <Input
-        type="text"
-        id="playlist"
-        value={playlistInput}
-        onChange={(e) => updatePlaylistName(e)}
-      />
+    <section id="playlist">
+      <form id="playlist-form" onSubmit={(e) => handleSavePlaylist(e)}>
+        <Input
+          type="text"
+          id="playlist"
+          value={playlistInput}
+          onChange={(e) => updatePlaylistName(e)}
+        />
 
-      <TrackList
-        tracks={playlistTracks}
-        removeTrack={removeTrack}
-        remove={true}
-      />
-
-      <Button
-        type="submit"
-        name="Save"
-        id="save-spotify"
-        className="btn-primary"
-      />
-    </form>
+        <Button
+          type="submit"
+          name="Save"
+          id="save-spotify"
+          className="btn-primary"
+        />
+      </form>
+      <div className="tracks-wrapper">
+        <TrackList
+          tracks={playlistTracks}
+          removeTrack={removeTrack}
+          remove={true}
+        />
+      </div>
+    </section>
   );
 };
 

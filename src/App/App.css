@@ -44,6 +44,7 @@ img {
   border-radius: 4px;
   align-items: center;
   margin: 1em;
+  align-content: center;
 }
 
 .warning-icon {
@@ -54,6 +55,10 @@ img {
 
 .warning-icon i {
   font-size: 2.5em;
+}
+
+.warning-text {
+  margin-left: 0.5em;
 }
 /*MOBILE FIRST*/
 @media screen and (min-width: 768px) {

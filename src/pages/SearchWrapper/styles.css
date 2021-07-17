@@ -2,8 +2,7 @@
   width: 100px;
 }
 
-span#error {
-  display: inline-block;
-  margin: 0 1em;
-  width: 90vw;
+#tracks .track-list {
+  max-height: 50vh;
+  overflow: scroll;
 }

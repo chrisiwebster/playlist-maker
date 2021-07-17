@@ -33,10 +33,11 @@ const Track = ({ track, remove, addTrack, removeTrack }) => {
       <div className="flex-wrapper">
         <p>
           {track.name} | {track.artist}
+          <br />
+          {track.album}
         </p>
         {renderButton()}
       </div>
-      <p>{track.album}</p>
     </section>
   );
 };

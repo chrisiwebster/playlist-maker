@@ -5,11 +5,9 @@ import TrackList from "../TrackList";
 
 const SearchResults = ({ searchTracks, addTrack }) => {
   return (
-    <div id="tracks" className="flex-wrapper">
-      <div className="tracks-wrapper">
-        <TrackList tracks={searchTracks} addTrack={addTrack} remove={false} />
-      </div>
-    </div>
+    <section id="tracks" className="flex-wrapper">
+      <TrackList tracks={searchTracks} addTrack={addTrack} remove={false} />
+    </section>
   );
 };
 
