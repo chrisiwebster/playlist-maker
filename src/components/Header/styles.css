@@ -1,13 +1,23 @@
+/*GLOBAL STYLES*/
 header {
-  grid-row: span 2;
-  grid-column: span 4;
-  width: 100vw;
+  padding: 0 150px;
   display: flex;
   justify-content: space-around;
   background: #bec989;
-  font-family: "Roboto Mono";
+  min-height: 30vh;
 }
 
-img {
-  width: 50%;
+header h1 {
+  align-self: center;
+  font-size: 3em;
+}
+
+header img {
+  width: 150%;
+  align-self: flex-end;
+}
+
+@media screen and (min-width: 768px) {
+  header img {
+  }
 }

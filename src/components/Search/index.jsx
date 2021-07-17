@@ -14,7 +14,7 @@ const Search = ({
   handleClearSearchInput,
 }) => {
   return (
-    <div className="search-buttons">
+    <div id="search" className="search-buttons">
       <form id="search" onSubmit={(e) => handleAPISearch(e)}>
         <Input
           type="text"

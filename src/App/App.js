@@ -14,7 +14,8 @@ import "./App.css";
 const id = process.env.REACT_APP_SPOTIFY_KEY;
 const scope =
   "playlist-read-private playlist-read-collaborative playlist-modify-public";
-const redirect = "https://chrisiwebster.github.io/playlist-maker";
+// const redirect = "https://chrisiwebster.github.io/playlist-maker";
+const redirect = "http://localhost:3000/";
 
 //App component
 const App = () => {
@@ -201,7 +202,7 @@ const App = () => {
     checkAccessToken();
   });
   return (
-    <div>
+    <div id="app-wrapper">
       <NavBar
         handleNavClick={handleNavClick}
         status={status}

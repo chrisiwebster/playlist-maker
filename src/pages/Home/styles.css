@@ -1,0 +1,27 @@
+img#colour-radio {
+  border-radius: 11px;
+  width: 100%;
+}
+
+div#home p,
+div#home i,
+div#warning-box {
+  margin: 1em;
+}
+
+/*WARNING BOX*/
+#warning-box {
+  display: flex;
+  border: black 2px solid;
+  border-radius: 4px;
+  align-items: center;
+}
+
+#warning-icon {
+  background: #fdfd96;
+  padding: 2em 1em;
+}
+
+#warning-icon i {
+  font-size: 2.5em;
+}

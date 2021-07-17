@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 
-const PlaylistView = ({ className, playlists, viewPlaylists }) => {
+const PlaylistView = ({ playlists, viewPlaylists }) => {
   useEffect(() => {
     document.title = "View playlists | Chrisi Webster";
     viewPlaylists();
   }, [viewPlaylists]);
 
   return (
-    <div className={className}>
+    <div id="playlist">
       <h2>View your playlists</h2>
       <ul>
         {playlists.map((playlist) => {

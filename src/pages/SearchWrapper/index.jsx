@@ -10,8 +10,6 @@ import Playlist from "../../components/Playlist";
 
 //SearchWrapper
 const SearchWrapper = ({
-  expiresIn,
-  accessToken,
   handleAPISearch,
   searchInput,
   addTrack,
@@ -34,7 +32,7 @@ const SearchWrapper = ({
   });
 
   return (
-    <div>
+    <div id="search-results">
       <Search
         handleAPISearch={handleAPISearch}
         handleSearchInput={handleSearchInput}

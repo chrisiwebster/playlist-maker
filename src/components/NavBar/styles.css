@@ -1,9 +1,9 @@
-/* .nav-wrapper {
-  background: #bec989;
-} */
-
 nav {
   height: 0;
+}
+
+.nav-wrapper {
+  margin: 0;
 }
 
 .navigation {
