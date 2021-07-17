@@ -10,21 +10,34 @@ const Track = ({ track, remove, addTrack, removeTrack }) => {
   const renderButton = () => {
     if (remove) {
       return (
-        <Button type="submit" name="-" onClick={() => removeTrack(track)} />
+        <Button
+          type="submit"
+          name="-"
+          className="btn-secondary"
+          onClick={() => removeTrack(track)}
+        />
       );
     } else {
-      return <Button type="submit" name="+" onClick={() => addTrack(track)} />;
+      return (
+        <Button
+          type="submit"
+          name="+"
+          className="btn-secondary"
+          onClick={() => addTrack(track)}
+        />
+      );
     }
   };
   return (
-    <div className="tracks">
+    <section className="tracks">
       <div className="flex-wrapper">
-        <h3>{track.name}</h3> {renderButton()}
+        <p>
+          {track.name} | {track.artist}
+        </p>
+        {renderButton()}
       </div>
-      <p>
-        {track.artist} | {track.album}
-      </p>
-    </div>
+      <p>{track.album}</p>
+    </section>
   );
 };
 

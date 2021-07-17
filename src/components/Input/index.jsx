@@ -1,5 +1,8 @@
 import React from "react";
 
+//CSS
+import "./styles.css";
+
 const Input = ({ type, label, placeholder, onChange, onBlur, id, value }) => {
   return (
     <div>

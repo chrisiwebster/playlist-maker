@@ -14,19 +14,17 @@ const Search = ({
   handleClearSearchInput,
 }) => {
   return (
-    <div id="search" className="search-buttons">
-      <form id="search" onSubmit={(e) => handleAPISearch(e)}>
-        <Input
-          type="text"
-          value={searchInput}
-          id="search"
-          placeholder="Search for songs"
-          onChange={(e) => handleSearchInput(e)}
-          onBlur={() => handleClearSearchInput()}
-        />
-        <Button type="submit" name="Search" />
-      </form>
-    </div>
+    <form id="search" onSubmit={(e) => handleAPISearch(e)}>
+      <Input
+        type="text"
+        value={searchInput}
+        id="search"
+        placeholder="Search for songs"
+        onChange={(e) => handleSearchInput(e)}
+        onBlur={() => handleClearSearchInput()}
+      />
+      <Button type="submit" name="Search" className="btn-primary" />
+    </form>
   );
 };
 

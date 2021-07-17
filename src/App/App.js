@@ -30,6 +30,7 @@ const App = () => {
   const [playlistName, setPlaylistName] = useState("");
   const [playlistInput, setPlaylistInput] = useState("New Playlist");
   const [playlists, setPlaylists] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const checkAccessToken = useCallback(() => {
     //Check access token in URL
@@ -74,33 +75,37 @@ const App = () => {
 
   const handleAPISearch = (e) => {
     e.preventDefault();
-    fetch(
-      `https://api.spotify.com/v1/search?type=track&q=${searchTerm}&limit=50`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((jsonResponse) => {
-        if (!jsonResponse.tracks) {
-          //if there are no tracks in the response
-          return [];
+    if (accessToken !== "") {
+      fetch(
+        `https://api.spotify.com/v1/search?type=track&q=${searchTerm}&limit=50`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         }
-        return jsonResponse.tracks.items.map((track) => ({
-          id: track.id,
-          name: track.name,
-          artist: track.artists[0].name,
-          album: track.album.name,
-          uri: track.uri,
-        }));
-      })
-      .then((jsonResponse) => {
-        setSearchTracks(jsonResponse);
-      });
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonResponse) => {
+          if (!jsonResponse.tracks) {
+            //if there are no tracks in the response
+            return [];
+          }
+          return jsonResponse.tracks.items.map((track) => ({
+            id: track.id,
+            name: track.name,
+            artist: track.artists[0].name,
+            album: track.album.name,
+            uri: track.uri,
+          }));
+        })
+        .then((jsonResponse) => {
+          setSearchTracks(jsonResponse);
+        });
+    } else {
+      setErrorMessage("You need to sign in");
+    }
   };
 
   //Playlist add functions
@@ -167,7 +172,7 @@ const App = () => {
   //View playlist functions
   const viewPlaylists = useCallback(() => {
     const headers = { Authorization: `Bearer ${accessToken}` };
-    if (window.location)
+    if (accessToken !== "") {
       return fetch("https://api.spotify.com/v1/me", {
         headers: headers,
       })
@@ -196,6 +201,9 @@ const App = () => {
               setPlaylists(jsonResponse);
             });
         });
+    } else {
+      setErrorMessage("You need to sign in");
+    }
   }, [accessToken]);
 
   useEffect(() => {
@@ -235,6 +243,7 @@ const App = () => {
             addTrack={addTrack}
             setPlaylistTracks={setPlaylistTracks}
             handleClearNameInput={handleClearNameInput}
+            errorMessage={errorMessage}
           />
         </Route>
         <Route exact path="/view-playlists">
@@ -243,6 +252,7 @@ const App = () => {
             setPlaylists={setPlaylists}
             playlists={playlists}
             handleSignIn={handleSignIn}
+            errorMessage={errorMessage}
           />
         </Route>
       </Switch>

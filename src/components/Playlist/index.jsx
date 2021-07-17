@@ -41,7 +41,12 @@ const Playlist = ({
         remove={true}
       />
 
-      <Button type="submit" name="Save to Spotify" id="save-spotify" />
+      <Button
+        type="submit"
+        name="Save"
+        id="save-spotify"
+        className="btn-primary"
+      />
     </form>
   );
 };

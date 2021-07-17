@@ -1,27 +1,32 @@
+section {
+  flex-direction: row-reverse;
+}
+
 img#colour-radio {
   border-radius: 11px;
+  margin-left: 0.5em;
   width: 100%;
 }
 
 div#home p,
 div#home i,
-div#warning-box {
+h2 {
   margin: 1em;
 }
 
-/*WARNING BOX*/
-#warning-box {
-  display: flex;
-  border: black 2px solid;
-  border-radius: 4px;
-  align-items: center;
-}
+@media screen and (min-width: 1024px) {
+  .warning-box {
+    max-width: 50vw;
+    margin: 1em auto;
+  }
 
-#warning-icon {
-  background: #fdfd96;
-  padding: 2em 1em;
-}
+  #content-wrapper {
+    width: 60%;
+  }
 
-#warning-icon i {
-  font-size: 2.5em;
+  img#colour-radio {
+    border-radius: 11px;
+    margin: 1em;
+    width: 50%;
+  }
 }

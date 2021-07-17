@@ -16,7 +16,12 @@ const NavBar = ({
     <div className="nav-wrapper">
       {accessToken === "" && (
         <Link to="/">
-          <Button type="button" name="Sign in" onClick={() => handleSignIn()} />
+          <Button
+            type="button"
+            name="Sign in"
+            className="btn-primary"
+            onClick={() => handleSignIn()}
+          />
         </Link>
       )}
 

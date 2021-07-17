@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 
-const PlaylistView = ({ playlists, viewPlaylists }) => {
+//Components
+import Header from "../../components/Header";
+
+const PlaylistView = ({ playlists, viewPlaylists, errorMessage }) => {
   useEffect(() => {
     document.title = "View playlists | Chrisi Webster";
     viewPlaylists();
@@ -8,7 +11,18 @@ const PlaylistView = ({ playlists, viewPlaylists }) => {
 
   return (
     <div id="playlist">
-      <h2>View your playlists</h2>
+      <Header title="View your playlists" />
+      {errorMessage !== "" && (
+        <div className="warning-box">
+          <div className="warning-icon">
+            <i className="fas fa-exclamation-triangle"></i>
+          </div>
+          <div className="warning-text">
+            <p>{errorMessage}</p>
+          </div>
+        </div>
+      )}
+
       <ul>
         {playlists.map((playlist) => {
           return <div key={playlist.id}>{playlist.name}</div>;
