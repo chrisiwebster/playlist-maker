@@ -27,7 +27,7 @@ const Playlist = ({
   };
 
   return (
-    <section id="playlist">
+    <div id="playlist">
       <form id="playlist-form" onSubmit={(e) => handleSavePlaylist(e)}>
         <Input
           type="text"
@@ -35,7 +35,6 @@ const Playlist = ({
           value={playlistInput}
           onChange={(e) => updatePlaylistName(e)}
         />
-
         <Button
           type="submit"
           name="Save"
@@ -43,14 +42,14 @@ const Playlist = ({
           className="btn-primary"
         />
       </form>
-      <div className="tracks-wrapper">
+      <div className="track-list">
         <TrackList
           tracks={playlistTracks}
           removeTrack={removeTrack}
           remove={true}
         />
       </div>
-    </section>
+    </div>
   );
 };
 

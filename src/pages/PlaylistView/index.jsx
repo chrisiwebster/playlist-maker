@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 
+//CSS
+import "./styles.css";
+
 //Components
 import Header from "../../components/Header";
 
@@ -7,7 +10,7 @@ const PlaylistView = ({ playlists, viewPlaylists, errorMessage }) => {
   useEffect(() => {
     document.title = "View playlists | Chrisi Webster";
     viewPlaylists();
-  }, [viewPlaylists]);
+  }, []);
 
   return (
     <div id="playlist">
@@ -23,11 +26,15 @@ const PlaylistView = ({ playlists, viewPlaylists, errorMessage }) => {
         </div>
       )}
 
-      <ul>
+      <section>
         {playlists.map((playlist) => {
-          return <div key={playlist.id}>{playlist.name}</div>;
+          return (
+            <div className="playlist-wrapper" key={playlist.id}>
+              <h3>{playlist.name}</h3>
+            </div>
+          );
         })}
-      </ul>
+      </section>
     </div>
   );
 };

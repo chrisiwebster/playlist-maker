@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 //Components
 import NavBar from "../components/NavBar";
 import Home from "../pages/Home";
+import About from "../pages/About";
 import PlaylistView from "../pages/PlaylistView";
 import SearchWrapper from "../pages/SearchWrapper";
 
@@ -14,8 +15,7 @@ import "./App.css";
 const id = process.env.REACT_APP_SPOTIFY_KEY;
 const scope =
   "playlist-read-private playlist-read-collaborative playlist-modify-public";
-// const redirect = "https://chrisiwebster.github.io/playlist-maker";
-const redirect = "http://localhost:3000/";
+const redirect = "https://chrisiwebster.github.io/playlist-maker";
 
 //App component
 const App = () => {
@@ -170,9 +170,9 @@ const App = () => {
   };
 
   //View playlist functions
-  const viewPlaylists = useCallback(() => {
+  const viewPlaylists = () => {
     const headers = { Authorization: `Bearer ${accessToken}` };
-    if (accessToken !== "") {
+    if (expiresIn !== undefined) {
       return fetch("https://api.spotify.com/v1/me", {
         headers: headers,
       })
@@ -192,6 +192,8 @@ const App = () => {
                 return jsonResponse.items.map((playlist) => ({
                   id: playlist.id,
                   name: playlist.name,
+                  href: playlist.href,
+                  images: playlist.images,
                 }));
               } else {
                 return [];
@@ -204,7 +206,7 @@ const App = () => {
     } else {
       setErrorMessage("You need to sign in");
     }
-  }, [accessToken]);
+  };
 
   useEffect(() => {
     checkAccessToken();
@@ -225,6 +227,9 @@ const App = () => {
             accessToken={accessToken}
             expiresIn={expiresIn}
           />
+        </Route>
+        <Route exact path="/about">
+          <About />
         </Route>
         <Route path={"/search"}>
           <SearchWrapper
@@ -251,7 +256,6 @@ const App = () => {
             viewPlaylists={viewPlaylists}
             setPlaylists={setPlaylists}
             playlists={playlists}
-            handleSignIn={handleSignIn}
             errorMessage={errorMessage}
           />
         </Route>

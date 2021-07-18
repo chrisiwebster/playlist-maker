@@ -10,7 +10,7 @@ const TrackList = ({ tracks, addTrack, removeTrack, remove }) => {
         return (
           <Track
             track={track}
-            key={track.id}
+            key={track.id + "1"}
             addTrack={addTrack}
             removeTrack={removeTrack}
             remove={remove}

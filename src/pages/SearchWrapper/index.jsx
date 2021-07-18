@@ -46,36 +46,29 @@ const SearchWrapper = ({
           </div>
         </div>
       )}
-
       <Search
         handleAPISearch={handleAPISearch}
         handleSearchInput={handleSearchInput}
         handleClearSearchInput={handleClearSearchInput}
         searchInput={searchInput}
       />
-      <section className="search-playlist-wrapper">
-        <section className="search-results-wrapper">
-          <h2>Search results ({searchTracks.length})</h2>
-          <SearchResults searchTracks={searchTracks} addTrack={addTrack} />
-        </section>
-        {searchTracks && (
-          <section className="playlist-wrapper">
-            <h2>Add to playlist</h2>
-            <Playlist
-              updatePlaylistName={updatePlaylistName}
-              removeTrack={removeTrack}
-              savePlaylist={savePlaylist}
-              setPlaylistName={setPlaylistName}
-              playlistTracks={playlistTracks}
-              searchTracks={searchTracks}
-              playlistName={playlistName}
-              playlistInput={playlistInput}
-              setPlaylistTracks={setPlaylistTracks}
-              handleClearNameInput={handleClearNameInput}
-            />
-          </section>
-        )}
-      </section>
+      <div id="tracks-wrapper">
+        <h2>Search results ({searchTracks.length})</h2>
+        <SearchResults searchTracks={searchTracks} addTrack={addTrack} />
+        <h2>Add to playlist</h2>
+        <Playlist
+          updatePlaylistName={updatePlaylistName}
+          removeTrack={removeTrack}
+          savePlaylist={savePlaylist}
+          setPlaylistName={setPlaylistName}
+          playlistTracks={playlistTracks}
+          searchTracks={searchTracks}
+          playlistName={playlistName}
+          playlistInput={playlistInput}
+          setPlaylistTracks={setPlaylistTracks}
+          handleClearNameInput={handleClearNameInput}
+        />
+      </div>
     </div>
   );
 };

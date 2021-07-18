@@ -29,16 +29,14 @@ const Track = ({ track, remove, addTrack, removeTrack }) => {
     }
   };
   return (
-    <section className="tracks">
-      <div className="flex-wrapper">
-        <p>
-          {track.name} | {track.artist}
-          <br />
-          {track.album}
-        </p>
-        {renderButton()}
-      </div>
-    </section>
+    <div className="tracks">
+      <p>
+        {track.name} | {track.artist}
+        <br />
+        {track.album}
+      </p>
+      {renderButton()}
+    </div>
   );
 };
 

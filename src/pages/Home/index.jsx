@@ -1,9 +1,6 @@
 import React from "react";
 import radio from "./colour_radio.png";
 
-//CSS
-import "./styles.css";
-
 //Components
 import Header from "../../components/Header";
 
@@ -28,7 +25,7 @@ const Home = ({ accessToken, expiresIn }) => {
       )}
       {expiresIn !== undefined && (
         <section>
-          <div id="content-wrapper">
+          <div className="content-wrapper">
             <h2>Use the Spotify API</h2>
             <p>
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris

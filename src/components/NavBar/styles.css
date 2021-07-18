@@ -1,12 +1,9 @@
-.nav-wrapper .btn-primary {
-  margin: 0.25em 0 0 0.25em;
-}
 nav {
-  height: 0;
+  height: 100px;
 }
 
-.nav-wrapper {
-  margin: 0;
+nav .btn-primary {
+  margin: 0.25em 0 0 0.25em;
 }
 
 .navigation {
@@ -59,7 +56,7 @@ a.nav-item:hover {
 
 .fa-hamburger,
 .fa-times {
-  padding: 0.15em;
+  padding: 0.3em 0.15em;
   font-size: 3em;
   z-index: 1;
 }
@@ -71,10 +68,6 @@ a.nav-item:hover {
 
 /*MOBILE FIRST*/
 @media screen and (min-width: 768px) {
-  nav {
-    height: auto;
-  }
-
   .navigation {
     font-size: 1.25em;
     max-width: 90vw;

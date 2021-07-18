@@ -1,0 +1,27 @@
+#playlist section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.playlist-wrapper {
+  flex-grow: 2;
+  padding: 1em;
+  flex-basis: 20%;
+  margin: 1em;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.playlist-wrapper h3 {
+  margin-bottom: 0.5em;
+}
+
+.playlist-wrapper:nth-last-child(2n + 1) {
+  background: #c9bd80;
+}
+
+.playlist-wrapper:nth-last-child(2n + 2) {
+  background: #a19dc9;
+  color: white;
+}

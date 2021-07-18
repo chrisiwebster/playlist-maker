@@ -13,7 +13,7 @@ const NavBar = ({
   handleSignIn,
 }) => {
   return (
-    <div className="nav-wrapper">
+    <div id="nav">
       {accessToken === "" && (
         <Link to="/">
           <Button
@@ -26,7 +26,7 @@ const NavBar = ({
       )}
 
       {expiresIn !== undefined && (
-        <div className="nav-wrapper">
+        <nav>
           <i
             tabIndex="0"
             onKeyDown={() => handleNavClick()}
@@ -34,29 +34,32 @@ const NavBar = ({
             className={status === true ? "fas fa-times" : "fas fa-hamburger"}
           ></i>
 
-          <nav>
-            <ul
-              className={status ? "navigation active" : "navigation"}
-              role="navigation"
-            >
-              <li onClick={() => handleNavClick()}>
-                <NavLink to="/" className="nav-item">
-                  Home
-                </NavLink>
-              </li>
-              <li onClick={() => handleNavClick()}>
-                <NavLink to="/search" className="nav-item">
-                  Search songs
-                </NavLink>
-              </li>
-              <li onClick={() => handleNavClick()}>
-                <NavLink to="/view-playlists" className="nav-item">
-                  View playlists
-                </NavLink>
-              </li>
-            </ul>
-          </nav>
-        </div>
+          <ul
+            className={status ? "navigation active" : "navigation"}
+            role="navigation"
+          >
+            <li onClick={() => handleNavClick()}>
+              <NavLink to="/" className="nav-item">
+                Home
+              </NavLink>
+            </li>
+            <li onClick={() => handleNavClick()}>
+              <NavLink to="/about" className="nav-item">
+                About
+              </NavLink>
+            </li>
+            <li onClick={() => handleNavClick()}>
+              <NavLink to="/search" className="nav-item">
+                Search songs
+              </NavLink>
+            </li>
+            <li onClick={() => handleNavClick()}>
+              <NavLink to="/view-playlists" className="nav-item">
+                View playlists
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
       )}
     </div>
   );
