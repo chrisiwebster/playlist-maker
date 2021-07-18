@@ -3,25 +3,14 @@ import radio from "./colour_radio.png";
 
 //Components
 import Header from "../../components/Header";
+import WarningBox from "../../components/WarningBox";
 
 const Home = ({ accessToken, expiresIn }) => {
   return (
     <div id="home">
       <Header title="Playlist Maker" />
-
       {accessToken === "" && (
-        <div className="warning-box">
-          <div className="warning-icon">
-            <i className="fas fa-exclamation-triangle"></i>
-          </div>
-          <div className="warning-text">
-            <p>Sign into Spotify using the button above.</p>
-            <p>
-              Then you can navigate to the rest of the site to create and view
-              playlists.
-            </p>
-          </div>
-        </div>
+        <WarningBox errorMessage="Sign into Spotify to navigate to the rest of the site." />
       )}
       {expiresIn !== undefined && (
         <section>

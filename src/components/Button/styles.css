@@ -24,3 +24,7 @@ button.btn-secondary {
   background: #c975b0;
   color: white;
 }
+
+button:active {
+  opacity: 70%;
+}

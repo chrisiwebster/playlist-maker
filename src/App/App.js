@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 
 //Components
@@ -15,7 +15,8 @@ import "./App.css";
 const id = process.env.REACT_APP_SPOTIFY_KEY;
 const scope =
   "playlist-read-private playlist-read-collaborative playlist-modify-public";
-const redirect = "https://chrisiwebster.github.io/playlist-maker";
+// const redirect = "https://chrisiwebster.github.io/playlist-maker";
+const redirect = "http://localhost:3000/";
 
 //App component
 const App = () => {
@@ -32,7 +33,7 @@ const App = () => {
   const [playlists, setPlaylists] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const checkAccessToken = useCallback(() => {
+  const checkAccessToken = () => {
     //Check access token in URL
     const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
     const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
@@ -51,7 +52,7 @@ const App = () => {
         }
       }, 1000);
     }
-  }, [expiresIn]);
+  };
 
   //NavBar open and close
   const handleNavClick = () => {
@@ -75,7 +76,7 @@ const App = () => {
 
   const handleAPISearch = (e) => {
     e.preventDefault();
-    if (accessToken !== "") {
+    if (expiresIn !== undefined) {
       fetch(
         `https://api.spotify.com/v1/search?type=track&q=${searchTerm}&limit=50`,
         {
@@ -88,9 +89,12 @@ const App = () => {
           return response.json();
         })
         .then((jsonResponse) => {
-          if (!jsonResponse.tracks) {
-            //if there are no tracks in the response
-            return [];
+          if (jsonResponse.tracks.total === 0) {
+            //if there are no tracks in the response, we return an error message to display
+            setSearchInput("");
+            return setErrorMessage(
+              "No tracks matched that search term. Try again!"
+            );
           }
           return jsonResponse.tracks.items.map((track) => ({
             id: track.id,
@@ -108,13 +112,13 @@ const App = () => {
     }
   };
 
-  //Playlist add functions
+  //Playlist add and remove functions
   const addTrack = (track) => {
-    //seeing if the track is already in the playlist
-    if (
-      playlistTracks.find((savedTrack) => savedTrack.id === playlistTracks.id)
-    ) {
-      return;
+    //seeing if the track is already in the playlist so it doesn't add twice
+    for (let i = 0; i < playlistTracks.length; i++) {
+      if (track.id === playlistTracks[i].id) {
+        return;
+      }
     }
     setPlaylistTracks((prevState) => {
       return [...prevState, track];
@@ -133,6 +137,7 @@ const App = () => {
     setPlaylistName(playlistInput);
   };
 
+  //When cleared, input goes back to 'New Playlist'
   const handleClearNameInput = () => {
     setPlaylistInput("New Playlist");
   };
@@ -141,7 +146,6 @@ const App = () => {
     if (!name || !trackUris.length) {
       return;
     }
-
     const headers = { Authorization: `Bearer ${accessToken}` };
     return fetch("https://api.spotify.com/v1/me", {
       headers: headers,
@@ -172,6 +176,7 @@ const App = () => {
   //View playlist functions
   const viewPlaylists = () => {
     const headers = { Authorization: `Bearer ${accessToken}` };
+    //First get the user ID
     if (expiresIn !== undefined) {
       return fetch("https://api.spotify.com/v1/me", {
         headers: headers,
@@ -179,6 +184,7 @@ const App = () => {
         .then((response) => response.json())
         .then((jsonResponse) => {
           const userId = jsonResponse.id;
+          //Then search their playlists
           return fetch(
             `https://api.spotify.com/v1/users/${userId}/playlists?limit=50`,
             {
@@ -210,7 +216,7 @@ const App = () => {
 
   useEffect(() => {
     checkAccessToken();
-  });
+  }, []);
   return (
     <div id="app-wrapper">
       <NavBar

@@ -42,7 +42,7 @@ const Playlist = ({
           className="btn-primary"
         />
       </form>
-      <div className="track-list">
+      <div>
         <TrackList
           tracks={playlistTracks}
           removeTrack={removeTrack}

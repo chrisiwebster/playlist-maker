@@ -5,7 +5,7 @@ import TrackList from "../TrackList";
 
 const SearchResults = ({ searchTracks, addTrack }) => {
   return (
-    <div className="track-list">
+    <div>
       <TrackList tracks={searchTracks} addTrack={addTrack} remove={false} />
     </div>
   );

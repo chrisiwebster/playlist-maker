@@ -8,6 +8,7 @@ import SearchResults from "../../components/SearchResults";
 import Search from "../../components/Search";
 import Playlist from "../../components/Playlist";
 import Header from "../../components/Header";
+import WarningBox from "../../components/WarningBox";
 
 //SearchWrapper
 const SearchWrapper = ({
@@ -36,24 +37,23 @@ const SearchWrapper = ({
   return (
     <div id="search-results">
       <Header title="Search for songs" />
-      {errorMessage !== "" && (
-        <div className="warning-box">
-          <div className="warning-icon">
-            <i className="fas fa-exclamation-triangle"></i>
-          </div>
-          <div className="warning-text">
-            <p>{errorMessage}</p>
-          </div>
-        </div>
-      )}
+      {errorMessage && <WarningBox errorMessage={errorMessage} />}
       <Search
         handleAPISearch={handleAPISearch}
         handleSearchInput={handleSearchInput}
         handleClearSearchInput={handleClearSearchInput}
         searchInput={searchInput}
+        errorMessage={errorMessage}
       />
-      <div id="tracks-wrapper">
-        <h2>Search results ({searchTracks.length})</h2>
+      <div>
+        <h2>
+          Search results (
+          {
+            //checks that searchTracks exists before reading its length
+            searchTracks && searchTracks.length
+          }
+          )
+        </h2>
         <SearchResults searchTracks={searchTracks} addTrack={addTrack} />
         <h2>Add to playlist</h2>
         <Playlist

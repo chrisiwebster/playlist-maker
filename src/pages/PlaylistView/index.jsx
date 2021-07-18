@@ -5,6 +5,7 @@ import "./styles.css";
 
 //Components
 import Header from "../../components/Header";
+import WarningBox from "../../components/WarningBox";
 
 const PlaylistView = ({ playlists, viewPlaylists, errorMessage }) => {
   useEffect(() => {
@@ -15,16 +16,7 @@ const PlaylistView = ({ playlists, viewPlaylists, errorMessage }) => {
   return (
     <div id="playlist">
       <Header title="View your playlists" />
-      {errorMessage !== "" && (
-        <div className="warning-box">
-          <div className="warning-icon">
-            <i className="fas fa-exclamation-triangle"></i>
-          </div>
-          <div className="warning-text">
-            <p>{errorMessage}</p>
-          </div>
-        </div>
-      )}
+      {errorMessage !== "" && <WarningBox errorMessage={errorMessage} />}
 
       <section>
         {playlists.map((playlist) => {
